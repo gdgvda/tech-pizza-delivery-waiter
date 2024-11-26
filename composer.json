@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "name": "gdgvda/tech-pizza-waiter",
   "title": "Tech&Pizza Delivery Waiter",
   "description": "A simple event delivery booking management system",
@@ -22,7 +22,7 @@
   },
   "autoload": {
     "psr-4": {
-      "TPW\\": "src/"
+      "TPDW\\": "src/"
     }
   }
 }

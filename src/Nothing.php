@@ -2,13 +2,13 @@
 /**
  * Tech&Pizza Delivery Waiter
  *
- * @package TPW
+ * @package TPDW
  * @author Manuel Zavatta <manuel.zavatta@gmail.com>
  */
 
-namespace TPW;
+namespace TPDW;
 
-class Nothing extends \TPW\HtmlSection{
+class Nothing extends \TPDW\HtmlSection{
 
   public function render():string {
     return <<<EOS
