@@ -3,11 +3,9 @@ on:
   push:
     branches:
       - 'main'
-
   pull_request:
     branches:
       - 'main'
-
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -17,7 +15,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -50,3 +47,14 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
           push: true
+      - name: Delete packages without version
+        uses: actions/delete-package-versions@v4
+        with:
+          package-type: 'container'
+          package-name: ${{ github.event.repository.name }}
+          delete-only-untagged-versions: false
+          custom-filter: |
+            !version.match(/^(v?\d+\.\d+\.\d+)$/)
+            && !version.match(/^[0-9a-f]{7}$/)
+            && version !== "latest"
+            && version !== "dev"
