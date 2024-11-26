@@ -1,2 +1,3 @@
-# tech-pizza-waiter
-Tech&amp;Pizza delivery waiter
+# Tech&amp;Pizza Delivery Waiter
+
+> A simple event delivery booking management system
