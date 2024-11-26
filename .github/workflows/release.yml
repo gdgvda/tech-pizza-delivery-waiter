@@ -63,6 +63,6 @@ jobs:
           min-versions-to-keep: 1
           delete-only-untagged-versions: false
           custom-filter: |
-            !version.match(/^(v?\d+\.\d+\.\d+)$/)
-            && version !== "latest"
-            && version !== "dev"
+            version.match(/^(v?\d+\.\d+\.\d+)$/)
+            && version === "latest"
+            && version === "dev"
