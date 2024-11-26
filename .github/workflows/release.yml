@@ -24,7 +24,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Extract version from composer.json
+      - name: Extract information from composer.json
         id: composer-info
         run: |
           echo "version=$(jq -r .version composer.json)" >> $GITHUB_OUTPUT
@@ -44,7 +44,7 @@ jobs:
             org.opencontainers.image.owner=${{ steps.composer-info.outputs.owner }}
           tags: |
             type=raw,value=latest,enable=${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-            type=raw,value={{raw}},enable=${{ steps.composer-version.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+            type=raw,value={{raw}},enable=${{ steps.composer-info.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
             type=raw,value={{sha}}
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
