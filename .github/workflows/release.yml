@@ -59,4 +59,4 @@ jobs:
         with:
           package-type: 'container'
           package-name: ${{ github.event.repository.name }}
-          keep-latest: 9
+          min-versions-to-keep: 9
