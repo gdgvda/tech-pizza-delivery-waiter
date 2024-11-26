@@ -58,6 +58,7 @@ jobs:
           context: .
           file: docker/production/Dockerfile
           platforms: linux/amd64,linux/arm64
+          annotations: ${{ steps.meta.outputs.annotations }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
           push: true
