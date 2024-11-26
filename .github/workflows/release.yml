@@ -43,9 +43,8 @@ jobs:
             org.opencontainers.image.title=${{ steps.composer-info.outputs.title }}
             org.opencontainers.image.description=${{ steps.composer-info.outputs.description }}
           tags: |
-            type=raw,value=lastpr,enable=${{ github.event_name == 'pull_request' }}
             type=raw,value=latest,enable=${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-            type=raw,value=${{ steps.composer-info.outputs.version }},enable=${{ steps.composer-info.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+#            type=raw,value=${{ steps.composer-info.outputs.version }},enable=${{ steps.composer-info.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
             type=raw,value={{sha}}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
