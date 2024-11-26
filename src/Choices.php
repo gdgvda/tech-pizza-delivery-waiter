@@ -2,11 +2,11 @@
 /**
  * Tech&Pizza Delivery Waiter
  *
- * @package TPW
+ * @package TPDW
  * @author Manuel Zavatta <manuel.zavatta@gmail.com>
  */
 
-namespace TPW;
+namespace TPDW;
 
 class Choices extends HtmlSection{
 
