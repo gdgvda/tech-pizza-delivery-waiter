@@ -43,7 +43,6 @@ jobs:
             org.opencontainers.image.description=${{ steps.composer-info.outputs.description }}
             org.opencontainers.image.owner=${{ steps.composer-info.outputs.owner }}
           tags: |
-            type=raw,value=dev,enable=${{ github.event_name == 'pull_request' }}
             type=raw,value=latest,enable=${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
             type=raw,value={{raw}},enable=${{ steps.composer-version.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
             type=raw,value={{sha}}
@@ -64,4 +63,3 @@ jobs:
           custom-filter: |
             !version.match(/^(v?\d+\.\d+\.\d+)$/)
             && version !== "latest"
-            && version !== "dev"
