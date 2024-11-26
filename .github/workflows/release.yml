@@ -38,7 +38,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=sha,format=raw,format=long
+            type=raw,value={{sha}}
             type=raw,value=dev,enable=${{ github.event_name == 'pull_request' }}
             type=raw,value=latest,enable=${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
             type=raw,value={{raw}},enable=${{ steps.composer-version.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
