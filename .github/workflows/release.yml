@@ -60,6 +60,7 @@ jobs:
         with:
           package-type: 'container'
           package-name: ${{ github.event.repository.name }}
+          min-versions-to-keep: 1
           delete-only-untagged-versions: false
           custom-filter: |
             !version.match(/^(v?\d+\.\d+\.\d+)$/)
