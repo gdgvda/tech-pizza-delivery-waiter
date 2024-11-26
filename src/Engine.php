@@ -15,7 +15,7 @@ class Engine {
     //$today = '2024-11-27';
     $HTML = new Html();
     if(date('l',strtotime($today)) !== "Wednesday"){
-      $HTML->addSection(new Closed());
+      $HTML->addSection(new Nothing());
     } else {
       $dataset = new Dataset($today);
       if($_SERVER['REQUEST_URI'] === '/submit') {
@@ -24,7 +24,7 @@ class Engine {
       }
       $HTML->addSection(new Event($dataset));
       $HTML->addSection(new Choices($dataset));
-      if(date('H') < 12) {
+      if(date('H') < 18) {
         $HTML->addSection(new Form());
       } else {
         $HTML->addSection(new Closed());
