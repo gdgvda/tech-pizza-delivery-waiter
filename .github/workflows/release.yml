@@ -1,0 +1,68 @@
+name: Release
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract version from composer.json
+        id: composer-info
+        run: |
+          echo "version=$(jq -r .version composer.json)" >> $GITHUB_OUTPUT
+          echo "name=$(jq -r .name composer.json)" >> $GITHUB_OUTPUT
+          echo "title=$(jq -r .title composer.json)" >> $GITHUB_OUTPUT
+          echo "description=$(jq -r .description composer.json)" >> $GITHUB_OUTPUT
+          echo "owner=$(jq -r .owner composer.json)" >> $GITHUB_OUTPUT
+      - name: Extract metadata (tags, labels) per Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          labels: |
+            org.opencontainers.image.version=${{ steps.composer-info.outputs.version }}
+            org.opencontainers.image.title=${{ steps.composer-info.outputs.title }}
+            org.opencontainers.image.description=${{ steps.composer-info.outputs.description }}
+            org.opencontainers.image.owner=${{ steps.composer-info.outputs.owner }}
+          tags: |
+            type=raw,value=dev,enable=${{ github.event_name == 'pull_request' }}
+            type=raw,value=latest,enable=${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+            type=raw,value={{raw}},enable=${{ steps.composer-version.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+            type=raw,value={{sha}}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/production/Dockerfile
+          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
+          push: true
+      - name: Delete packages without version
+        uses: actions/delete-package-versions@v4
+        with:
+          package-type: 'container'
+          package-name: ${{ github.event.repository.name }}
+          min-versions-to-keep: 1
+          delete-only-untagged-versions: false
+          custom-filter: |
+            !version.match(/^(v?\d+\.\d+\.\d+)$/)
+            && version !== "latest"
+            && version !== "dev"

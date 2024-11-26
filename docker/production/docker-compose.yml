@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: ./../..
+      dockerfile: docker/production/Dockerfile
+    container_name: tech-pizza-delivery-waiter
+    hostname: tech-pizza-delivery-waiter
+    ports:
+      - "${APP_PORT:-80}:80"
