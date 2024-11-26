@@ -59,7 +59,4 @@ jobs:
         with:
           package-type: 'container'
           package-name: ${{ github.event.repository.name }}
-          min-versions-to-keep: 1
-          custom-filter: |
-            !version.match(/^(v?\d+\.\d+\.\d+)$/)
-            && version !== "latest"
+          keep-latest: 9
