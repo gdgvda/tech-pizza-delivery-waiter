@@ -28,12 +28,25 @@ jobs:
         id: composer-version
         run: |
           VERSION=$(jq -r .version composer.json)
+          NAME=$(jq -r .name composer.json)
+          TITLE=$(jq -r .title composer.json)
+          DESCRIPTION=$(jq -r .description composer.json)
+          OWNER=$(jq -r .owner composer.json)
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "name=${NAME}" >> $GITHUB_OUTPUT
+          echo "title=${TITLE}" >> $GITHUB_OUTPUT
+          echo "description=${DESCRIPTION}" >> $GITHUB_OUTPUT
+          echo "owner=${OWNER}" >> $GITHUB_OUTPUT
       - name: Extract metadata (tags, labels) per Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          labels: |
+            org.opencontainers.image.version=${{ steps.composer-info.outputs.version }}
+            org.opencontainers.image.title=${{ github.event.repository.name }}
+            org.opencontainers.image.description=${{ steps.composer-info.outputs.description }}
+            org.opencontainers.image.owner=${{ steps.composer-info.outputs.owner }}
           tags: |
             type=raw,value={{sha}}
             type=raw,value=dev,enable=${{ github.event_name == 'pull_request' }}
