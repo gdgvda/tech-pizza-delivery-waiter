@@ -1,7 +1,7 @@
 #
 # PHP Dependencies Stage
 #
-FROM composer:1.10 as vendor
+FROM composer:1.10 AS vendor
 COPY composer.json composer.json
 COPY composer.lock composer.lock
 RUN composer install \
@@ -25,9 +25,6 @@ RUN /usr/sbin/a2enmod rewrite \
 
 COPY --from=vendor /app/vendor/ /var/www/html/vendor/
 COPY . /var/www/html/
-
-RUN pecl install xdebug \
- && docker-php-ext-enable xdebug
 
 RUN apt-get update && apt-get install -y tzdata \
  && ln -sf /usr/share/zoneinfo/Europe/Rome /etc/localtime \
