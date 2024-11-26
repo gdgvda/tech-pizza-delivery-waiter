@@ -25,7 +25,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract version from composer.json
-        id: composer-version
+        id: composer-info
         run: |
           echo "version=$(jq -r .version composer.json)" >> $GITHUB_OUTPUT
           echo "name=$(jq -r .name composer.json)" >> $GITHUB_OUTPUT
@@ -39,8 +39,8 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           labels: |
             org.opencontainers.image.version=${{ steps.composer-info.outputs.version }}
-            org.opencontainers.image.title=${{ github.event.repository.name }}
-            org.opencontainers.image.description=${{ steps.composer-info.outputs.description }}
+            org.opencontainers.image.title=${{ steps.composer-info.outputs.title }}
+            org.opencontainers.image.description=${{ steps.composer-info.outputs.version }}
             org.opencontainers.image.owner=${{ steps.composer-info.outputs.owner }}
           tags: |
             type=raw,value={{sha}}
@@ -63,6 +63,5 @@ jobs:
           delete-only-untagged-versions: false
           custom-filter: |
             !version.match(/^(v?\d+\.\d+\.\d+)$/)
-            && !version.match(/^[0-9a-f]{7}$/)
             && version !== "latest"
             && version !== "dev"
