@@ -11,7 +11,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 jobs:
   release:
-    runs-on: ubuntu-arm
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
@@ -43,13 +43,14 @@ jobs:
             org.opencontainers.image.title=${{ steps.composer-info.outputs.title }}
             org.opencontainers.image.description=${{ steps.composer-info.outputs.description }}
           tags: |
+            type=raw,value=lastpr,enable=${{ github.event_name == 'pull_request' }}
             type=raw,value=latest,enable=${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
             type=raw,value=${{ steps.composer-info.outputs.version }},enable=${{ steps.composer-info.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
             type=raw,value={{sha}}
-#      - name: Set up QEMU
-#        uses: docker/setup-qemu-action@v3
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
@@ -64,4 +65,4 @@ jobs:
         with:
           package-type: 'container'
           package-name: ${{ github.event.repository.name }}
-          min-versions-to-keep: 9
+          elete-only-untagged-versions: true
