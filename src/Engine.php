@@ -12,7 +12,6 @@ class Engine {
 
   public static function run():void {
     $today = date('Y-m-d');
-    $today = '2024-11-27';
     $html = new Html();
     if(date('l',strtotime($today)) !== "Wednesday"){
       $html->addSection(new Nothing());

@@ -1,9 +1,0 @@
-services:
-  app:
-    image: 'ghcr.io/gdgvda/tech-pizza-delivery-waiter:latest'
-    container_name: tpdw
-    hostname: tpdw
-    restart: unless-stopped
-    ports:
-      - 80:80
-
