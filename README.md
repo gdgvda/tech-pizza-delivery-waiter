@@ -30,4 +30,4 @@ Build Docker containers for production
 
 ### Release and deploy
 
-Release are automatically built with GitHub Actions
+Release are automatically built with GitHub Actions and available in Packages
