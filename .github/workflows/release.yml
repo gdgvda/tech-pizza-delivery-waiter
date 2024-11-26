@@ -39,9 +39,9 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           labels: |
             org.opencontainers.image.version=${{ steps.composer-info.outputs.version }}
+            org.opencontainers.image.owner=${{ steps.composer-info.outputs.owner }}
             org.opencontainers.image.title=${{ steps.composer-info.outputs.title }}
             org.opencontainers.image.description=${{ steps.composer-info.outputs.description }}
-            org.opencontainers.image.owner=${{ steps.composer-info.outputs.owner }}
           tags: |
             type=raw,value=latest,enable=${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
             type=raw,value=${{ steps.composer-info.outputs.version }},enable=${{ steps.composer-info.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
@@ -58,6 +58,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
+          outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=${{ steps.composer-info.outputs.description }}
           push: true
       - name: Delete packages without version
         uses: actions/delete-package-versions@v4
