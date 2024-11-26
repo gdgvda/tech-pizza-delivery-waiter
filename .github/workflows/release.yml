@@ -58,7 +58,6 @@ jobs:
           platforms: linux/amd64,linux/arm64
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
-          outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=${{ steps.composer-info.outputs.description }}
           push: true
       - name: Delete packages without version
         uses: actions/delete-package-versions@v4
