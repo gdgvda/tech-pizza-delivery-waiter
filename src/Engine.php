@@ -11,12 +11,8 @@ namespace TPW;
 class Engine {
 
   public static function run():void {
-
-    echo date('Y-m-d H:i:s');
-
     $today = date('Y-m-d');
-    $today = '2024-11-27';
-
+    //$today = '2024-11-27';
     $HTML = new Html();
     if(date('l',strtotime($today)) !== "Wednesday"){
       $HTML->addSection(new Closed());

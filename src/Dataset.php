@@ -53,12 +53,12 @@ class Dataset {
   /** @return array<array{ name: string, choice: string }> */
   public function getSubscribers():array{ return $this->subscribers; }
 
-
   /**
    * Add a Subscriber
    *
    * @param string $name
    * @param string $choose
+   * @throws \Exception
    */
   public function addSubscriber(string $name, string $choose):void {
     $this->subscribers[] = (object)[ "name"=> $name, "choose" => $choose ];

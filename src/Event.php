@@ -22,6 +22,7 @@ class Event extends HtmlSection {
     return <<<EOS
 <p>$day, $date</p>
 <p><strong>$event</strong></p>
+<p><small>(le iscrizioni terminano alle 18:00)</small></p>
 <hr/>
 EOS;
   }

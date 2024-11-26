@@ -6,7 +6,6 @@
  * @author Manuel Zavatta <manuel.zavatta@gmail.com>
  */
 
-
 class Nothing extends \TPW\HtmlSection{
 
   public function render():string {
