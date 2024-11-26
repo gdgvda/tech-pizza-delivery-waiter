@@ -29,6 +29,7 @@ class Html {
 <html>
   <head>
     <title>Tech&amp;Pizza Delivery Waiter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
     <h1>Tech&amp;Pizza Delivery Waiter</h1>
