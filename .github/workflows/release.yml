@@ -27,16 +27,11 @@ jobs:
       - name: Extract version from composer.json
         id: composer-version
         run: |
-          VERSION=$(jq -r .version composer.json)
-          NAME=$(jq -r .name composer.json)
-          TITLE=$(jq -r .title composer.json)
-          DESCRIPTION=$(jq -r .description composer.json)
-          OWNER=$(jq -r .owner composer.json)
-          echo "version=${VERSION}" >> $GITHUB_OUTPUT
-          echo "name=${NAME}" >> $GITHUB_OUTPUT
-          echo "title=${TITLE}" >> $GITHUB_OUTPUT
-          echo "description=${DESCRIPTION}" >> $GITHUB_OUTPUT
-          echo "owner=${OWNER}" >> $GITHUB_OUTPUT
+          echo "version=$(jq -r .version composer.json)" >> $GITHUB_OUTPUT
+          echo "name=$(jq -r .name composer.json)" >> $GITHUB_OUTPUT
+          echo "title=$(jq -r .title composer.json)" >> $GITHUB_OUTPUT
+          echo "description=$(jq -r .description composer.json)" >> $GITHUB_OUTPUT
+          echo "owner=$(jq -r .owner composer.json)" >> $GITHUB_OUTPUT
       - name: Extract metadata (tags, labels) per Docker
         id: meta
         uses: docker/metadata-action@v5
