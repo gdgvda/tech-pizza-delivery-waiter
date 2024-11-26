@@ -65,4 +65,4 @@ jobs:
         with:
           package-type: 'container'
           package-name: ${{ github.event.repository.name }}
-          elete-only-untagged-versions: true
+          delete-only-untagged-versions: true
