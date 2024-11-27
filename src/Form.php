@@ -1,10 +1,4 @@
 <?php
-/**
- * Tech&Pizza Delivery Waiter
- *
- * @package TPDW
- * @author Manuel Zavatta <manuel.zavatta@gmail.com>
- */
 
 namespace TPDW;
 
