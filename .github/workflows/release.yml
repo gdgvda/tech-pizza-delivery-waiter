@@ -29,7 +29,7 @@ jobs:
         run: |
           echo "version=$(jq -r .version composer.json)" >> $GITHUB_OUTPUT
           echo "major=$(echo $(jq -r .version composer.json) | cut -d'.' -f1)" >> $GITHUB_OUTPUT
-          echo "minor=$(echo $(jq -r .version composer.json) | cut -d'.' -f1).$(echo $(jq -r .version composer.json) | cut -d'.' -f2)" >> $GITHUB_ENV
+          echo "minor=$(echo $(jq -r .version composer.json) | cut -d'.' -f1,2)" >> $GITHUB_OUTPUT
           echo "name=$(jq -r .name composer.json)" >> $GITHUB_OUTPUT
           echo "title=$(jq -r .title composer.json)" >> $GITHUB_OUTPUT
           echo "description=$(jq -r .description composer.json)" >> $GITHUB_OUTPUT
