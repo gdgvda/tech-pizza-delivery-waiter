@@ -18,15 +18,23 @@ class Engine {
     } else {
       $dataset = new Dataset($today);
       if($_SERVER['REQUEST_URI'] === '/submit') {
-        $dataset->addSubscriber($_POST['name'],$_POST['choose']);
-        header("location: /");
-      }
-      $html->addSection(new Event($dataset));
-      $html->addSection(new Choices($dataset));
-      if(date('H') < 18) {
-        $html->addSection(new Form());
-      } else {
-        $html->addSection(new Closed());
+        $name = filter_var(trim($_POST['name']),FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $choose= filter_var(trim($_POST['choose']),FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $pin= filter_var(trim($_POST['pin']),FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if($pin === date('Ymd')){
+          $dataset->addSubscriber($name,$choose);
+          header("location: /");
+        } else {
+          $html->addSection(new Unauthorized());
+        }
+      } else{
+        $html->addSection(new Event($dataset));
+        $html->addSection(new Choices($dataset));
+        if(date('H')<18){
+          $html->addSection(new Form());
+        }else{
+          $html->addSection(new Closed());
+        }
       }
     }
     $html->render();
