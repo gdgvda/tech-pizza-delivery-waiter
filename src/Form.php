@@ -14,9 +14,10 @@ class Form extends HtmlSection {
     return <<<EOS
 <hr/>
 <form method="post" action="/submit">
-  Iscriviti:
-  <input type="text" name="name" placeholder="Nome"/>
-  <input type="text" name="choose" placeholder="Pietanza scelta"/>
+  Iscriviti:<br/>
+  <input type="password" name="pin" placeholder="PIN"/><br/>
+  <input type="text" name="name" placeholder="Nome"/><br/>
+  <input type="text" name="choose" placeholder="Pietanza scelta"/><br/>
   <input type="submit"/>
 </form>
 EOS;

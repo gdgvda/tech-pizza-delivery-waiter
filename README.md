@@ -16,7 +16,7 @@ Install composer dependencies
 
 `composer install`
 
-Build Docker containers
+Build Docker containers (you can choose any port)
 
 `make development CUSTOM_PORT=8080`
 
@@ -24,7 +24,7 @@ Build Docker containers
 
 ### Build production image and test in compose
 
-Build Docker containers for production
+Build Docker containers for production (you can choose any port)
 
 `make production CUSTOM_PORT=8090`
 
