@@ -49,6 +49,12 @@ jobs:
           release_name: Release ${{ steps.composer-info.outputs.version }}
           prerelease: false
           draft: false
+          body: |
+            ## Pull Docker Image
+            You can pull the release image using the following command:
+            ```bash
+            $ docker pull ghcr.io/gdgvda/tech-pizza-delivery-waiter:${{ steps.composer-info.outputs.version }}
+            ```
       - name: Extract metadata (tags, labels) per Docker
         id: meta
         uses: docker/metadata-action@v5
@@ -62,9 +68,9 @@ jobs:
           tags: |
             type=raw,value=dev,enable=${{ github.event_name == 'pull_request' }}
             type=raw,value=latest,enable=${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-            type=semver,pattern={{ version }},enable=${{ steps.composer-info.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-            type=semver,pattern={{ major }}.{{ minor }},enable=${{ steps.composer-info.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-            type=semver,pattern={{ major }},enable=${{ steps.composer-info.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+            type=raw,value==${{ steps.composer-info.outputs.version }},enable=${{ steps.composer-info.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+            type=raw,value=${{ steps.composer-info.outputs.version.split('.')[0] }},enable=${{ steps.composer-info.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+            type=raw,value=${{ steps.composer-info.outputs.version.split('.')[0] }}.${{ steps.composer-info.outputs.version.split('.')[1] }},enable=${{ steps.composer-info.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
