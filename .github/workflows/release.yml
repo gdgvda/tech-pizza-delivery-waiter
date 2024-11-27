@@ -13,7 +13,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
       - name: Checkout repository
@@ -36,7 +36,7 @@ jobs:
         uses: rickstaa/action-create-tag@v1
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
-          tag: v${{ steps.composer-info.outputs.version }}
+          tag: ${{ steps.composer-info.outputs.version }}
           tag_exists_error: false
           force_push_tag: true
       - name: Create Release
@@ -45,7 +45,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ steps.composer-info.outputs.version }}
+          tag_name: ${{ steps.composer-info.outputs.version }}
           release_name: Release ${{ steps.composer-info.outputs.version }}
           prerelease: false
           draft: false
