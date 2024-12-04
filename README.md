@@ -6,6 +6,8 @@ Production: https://tpdw.zavy.im
 
 Development: http://localhost:8080/
 
+Docker Image: https://hub.docker.com/r/gdgvda/tech-pizza-delivery-waiter
+
 ## Development
 
 Start developing cloning repository
