@@ -51,13 +51,13 @@ jobs:
             ## Pull Docker Image
             You can pull the release image using the following command:
             ```bash
-            $ docker pull ghcr.io/gdgvda/tech-pizza-delivery-waiter:${{ steps.composer-info.outputs.version }}
+            $ docker pull gdgvda/tech-pizza-delivery-waiter:${{ steps.composer-info.outputs.version }}
             ```
       - name: Extract metadata (tags, labels) per Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: gdgvda/${{ github.repository }}
+          images: gdgvda/tech-pizza-delivery-waiter
           labels: |
             org.opencontainers.image.version=${{ steps.composer-info.outputs.version }}
             org.opencontainers.image.owner=${{ steps.composer-info.outputs.owner }}
