@@ -1,0 +1,13 @@
+{{#if choises.length}}
+  <dl>
+  {{#each choises}}
+    <dt><strong>{{name}}</strong></dt>
+    <dd>{{choose}}</dd>
+  {{/each}}
+  </dl>
+{{else}}
+  <br/>
+  Nessun iscritto ancora presente...
+  <br/>
+  <br/>
+{{/if}}

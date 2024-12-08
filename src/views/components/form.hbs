@@ -1,12 +1,3 @@
-<?php
-
-namespace TPDW;
-
-class Form extends HtmlSection {
-
-  public function render():string {
-    return <<<EOS
-<hr/>
 <form method="post" action="/submit">
   Iscriviti:<br/>
   <input type="password" name="pin" placeholder="PIN"/><br/>
@@ -14,7 +5,3 @@ class Form extends HtmlSection {
   <input type="text" name="choose" placeholder="Pietanza scelta"/><br/>
   <input type="submit"/>
 </form>
-EOS;
-  }
-
-}

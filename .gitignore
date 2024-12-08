@@ -1,2 +1,7 @@
 datasets/
 vendor/
+
+node_modules
+dist
+*.log
+.env
