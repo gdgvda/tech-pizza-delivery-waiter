@@ -5,7 +5,7 @@ import handlebars from 'handlebars';
 import view from '@fastify/view';
 import AutoLoad from "@fastify/autoload";
 import staticPlugin from '@fastify/static';
-import fastifyFormbody from '@fastify/formbody';
+import fastifyFormBody from '@fastify/formbody';
 import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify";
 
 const fastify:FastifyInstance = require("fastify")({
@@ -37,11 +37,11 @@ const fastify:FastifyInstance = require("fastify")({
   },
 });
 
-fastify.register(fastifyFormbody);
+fastify.register(fastifyFormBody);
 
 fastify.register(staticPlugin,{
   prefix: '/',
-  root: path.join(__dirname,'../static'),
+  root: path.join(__dirname,'../statics'),
   serveDotFiles: false,
   decorateReply: false,
   cacheControl: true,
@@ -53,7 +53,7 @@ fastify.register(staticPlugin,{
 
 fastify.register(view,{
   engine: { handlebars },
-  root: path.join(__dirname,'views'),
+  root: path.join(__dirname,'../views'),
   layout: 'layout.hbs',
   options: {
     partials: {
@@ -69,6 +69,7 @@ fastify.register(AutoLoad,{
 
 fastify
   .listen({
+    host: process.env.HOST as unknown as string,
     port: process.env.PORT as unknown as number,
   })
   .then(async ():Promise<void> => {

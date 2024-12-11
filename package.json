@@ -16,6 +16,7 @@
   "main": "main.js",
   "scripts": {
     "build": "tsc",
+    "start": "node dist/main.js",
     "watch": "nodemon --exec ts-node src/main.ts"
   },
   "dependencies": {
