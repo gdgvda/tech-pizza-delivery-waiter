@@ -20,21 +20,21 @@ jobs:
         with:
           username: gdgvda
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-      - name: Extract information from composer.json
-        id: composer-info
+      - name: Extract information from package.json
+        id: package-info
         run: |
-          echo "version=$(jq -r .version composer.json)" >> $GITHUB_OUTPUT
-          echo "major=$(echo $(jq -r .version composer.json) | cut -d'.' -f1)" >> $GITHUB_OUTPUT
-          echo "minor=$(echo $(jq -r .version composer.json) | cut -d'.' -f1,2)" >> $GITHUB_OUTPUT
-          echo "name=$(jq -r .name composer.json)" >> $GITHUB_OUTPUT
-          echo "title=$(jq -r .title composer.json)" >> $GITHUB_OUTPUT
-          echo "description=$(jq -r .description composer.json)" >> $GITHUB_OUTPUT
-          echo "owner=$(jq -r .owner composer.json)" >> $GITHUB_OUTPUT
+          echo "version=$(jq -r .version package.json)" >> $GITHUB_OUTPUT
+          echo "major=$(echo $(jq -r .version package.json) | cut -d'.' -f1)" >> $GITHUB_OUTPUT
+          echo "minor=$(echo $(jq -r .version package.json) | cut -d'.' -f1,2)" >> $GITHUB_OUTPUT
+          echo "name=$(jq -r .name package.json)" >> $GITHUB_OUTPUT
+          echo "title=$(jq -r .title package.json)" >> $GITHUB_OUTPUT
+          echo "description=$(jq -r .description package.json)" >> $GITHUB_OUTPUT
+          echo "owner=$(jq -r .owner package.json)" >> $GITHUB_OUTPUT
       - name: Add version Tag
         uses: rickstaa/action-create-tag@v1
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         with:
-          tag: ${{ steps.composer-info.outputs.version }}
+          tag: ${{ steps.package-info.outputs.version }}
           tag_exists_error: false
           force_push_tag: true
       - name: Create Release
@@ -43,15 +43,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.composer-info.outputs.version }}
-          release_name: Release ${{ steps.composer-info.outputs.version }}
+          tag_name: ${{ steps.package-info.outputs.version }}
+          release_name: Release ${{ steps.package-info.outputs.version }}
           prerelease: false
           draft: false
           body: |
             ## Pull Docker Image
             You can pull the release image using the following command:
             ```bash
-            $ docker pull gdgvda/tech-pizza-delivery-waiter:${{ steps.composer-info.outputs.version }}
+            $ docker pull gdgvda/tech-pizza-delivery-waiter:${{ steps.package-info.outputs.version }}
             ```
       - name: Extract metadata (tags, labels) per Docker
         id: meta
@@ -59,16 +59,16 @@ jobs:
         with:
           images: gdgvda/tech-pizza-delivery-waiter
           labels: |
-            org.opencontainers.image.version=${{ steps.composer-info.outputs.version }}
-            org.opencontainers.image.owner=${{ steps.composer-info.outputs.owner }}
-            org.opencontainers.image.title=${{ steps.composer-info.outputs.title }}
-            org.opencontainers.image.description=${{ steps.composer-info.outputs.description }}
+            org.opencontainers.image.version=${{ steps.package-info.outputs.version }}
+            org.opencontainers.image.owner=${{ steps.package-info.outputs.owner }}
+            org.opencontainers.image.title=${{ steps.package-info.outputs.title }}
+            org.opencontainers.image.description=${{ steps.package-info.outputs.description }}
           tags: |
             type=raw,value=dev,enable=${{ github.event_name == 'pull_request' }}
             type=raw,value=latest,enable=${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-            type=raw,value=${{ steps.composer-info.outputs.version }},enable=${{ steps.composer-info.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-            type=raw,value=${{ steps.composer-info.outputs.major }},enable=${{ steps.composer-info.outputs.major != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-            type=raw,value=${{ steps.composer-info.outputs.minor }},enable=${{ steps.composer-info.outputs.minor != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+            type=raw,value=${{ steps.package-info.outputs.version }},enable=${{ steps.package-info.outputs.version != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+            type=raw,value=${{ steps.package-info.outputs.major }},enable=${{ steps.package-info.outputs.major != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+            type=raw,value=${{ steps.package-info.outputs.minor }},enable=${{ steps.package-info.outputs.minor != '' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v3
       - name: Setup Docker Buildx
@@ -76,7 +76,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          file: docker/production/Dockerfile
           platforms: linux/amd64,linux/arm64
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}

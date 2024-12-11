@@ -1,5 +1,4 @@
 .git/
-datasets/*
 .gitignore
-Makefile
+datasets/*
 node_modules

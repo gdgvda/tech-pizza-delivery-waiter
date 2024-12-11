@@ -1,9 +1,0 @@
-services:
-  app:
-    build:
-      context: ./../..
-      dockerfile: deployment/Dockerfile
-    container_name: tech-pizza-delivery-waiter
-    hostname: tech-pizza-delivery-waiter
-    ports:
-      - "${APP_PORT:-3000}:3000"

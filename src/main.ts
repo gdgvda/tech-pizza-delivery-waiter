@@ -41,7 +41,7 @@ fastify.register(fastifyFormBody);
 
 fastify.register(staticPlugin,{
   prefix: '/',
-  root: path.join(__dirname,'../statics'),
+  root: path.join(__dirname,'../static'),
   serveDotFiles: false,
   decorateReply: false,
   cacheControl: true,
@@ -53,7 +53,7 @@ fastify.register(staticPlugin,{
 
 fastify.register(view,{
   engine: { handlebars },
-  root: path.join(__dirname,'../views'),
+  root: path.join(__dirname,'views'),
   layout: 'layout.hbs',
   options: {
     partials: {
