@@ -1,0 +1,35 @@
+<p>{{day}}, {{date}}</p>
+<p><strong>{{event}}</strong></p>
+{{#if open}}
+  <p><small>(le iscrizioni terminano alle 18:00)</small></p>
+{{else}}
+  <p><mark>Iscrizioni concluse, scrivici su telegram..</mark></p>
+{{/if}}
+<hr/>
+{{#if subscribers.length}}
+  <dl>
+    {{#each subscribers}}
+      <dt><strong>{{name}}</strong></dt>
+      <dd>{{choose}}</dd>
+    {{/each}}
+  </dl>
+{{else}}
+  <br/>
+  Nessun iscritto ancora presente...
+  <br/>
+  <br/>
+{{/if}}
+{{#if open}}
+  <hr/>
+  <form method="post" action="/submit">
+    Iscriviti:<br/>
+    <input type="password" name="pin" placeholder="PIN"/><br/>
+    <input type="text" name="name" placeholder="Nome"/><br/>
+    <input type="text" name="choose" placeholder="Pietanza scelta"/><br/>
+    <input type="submit"/>
+  </form>
+{{/if}}
+{{#if alert}}
+  <hr/>
+  <p></p><mark>{{alert}}</mark></p>
+{{/if}}

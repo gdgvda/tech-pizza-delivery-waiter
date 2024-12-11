@@ -5,7 +5,8 @@ import handlebars from 'handlebars';
 import view from '@fastify/view';
 import AutoLoad from "@fastify/autoload";
 import staticPlugin from '@fastify/static';
-import {FastifyRequest, FastifyReply, FastifyInstance} from "fastify";
+import fastifyFormbody from '@fastify/formbody';
+import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify";
 
 const fastify:FastifyInstance = require("fastify")({
   logger: {
@@ -35,6 +36,8 @@ const fastify:FastifyInstance = require("fastify")({
     },
   },
 });
+
+fastify.register(fastifyFormbody);
 
 fastify.register(staticPlugin,{
   prefix: '/',
