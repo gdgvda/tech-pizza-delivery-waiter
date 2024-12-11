@@ -7,6 +7,8 @@
           <resourceRoots>
             <path value="file://$PROJECT_DIR$/vendor" />
             <path value="file://$PROJECT_DIR$/public" />
+            <path value="file://$PROJECT_DIR$/static" />
+            <path value="file://$PROJECT_DIR$/statics" />
           </resourceRoots>
         </entryData>
       </entry>

@@ -1,7 +1,4 @@
-datasets/*
-docker/
-public/phpinfo.php
-vendor/
 .git/
 .gitignore
-Makefile
+datasets/*
+node_modules

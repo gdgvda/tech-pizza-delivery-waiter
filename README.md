@@ -4,7 +4,7 @@
 
 Production: https://tpdw.zavy.im
 
-Development: http://localhost:8080/
+Development: http://localhost:3000/
 
 Docker Image: https://hub.docker.com/r/gdgvda/tech-pizza-delivery-waiter
 
@@ -14,14 +14,15 @@ Start developing cloning repository
 
 `git clone https://github.com/gdgvda/tech-pizza-delivery-waiter.git`
 
-Install composer dependencies
+Install node dependencies
 
-`composer install`
+`npm install`
 
-Build Docker containers (you can choose any port)
+Run in watch mode
 
-`make development CUSTOM_PORT=8080`
+`npm run watch`
 
+############################ todo
 ## Production
 
 ### Build production image and test in compose
@@ -32,4 +33,4 @@ Build Docker containers for production (you can choose any port)
 
 ### Release and deploy
 
-Release are automatically built with GitHub Actions and available in Packages
+Release are automatically built with GitHub Actions and available in Docker Hub
