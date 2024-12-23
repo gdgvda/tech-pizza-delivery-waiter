@@ -1,5 +1,5 @@
 import pkg from '../../package.json';
-import ip from "ip";
+//import ip from "ip";
 
 export function infoController() {
   return {
@@ -9,6 +9,6 @@ export function infoController() {
     description: pkg.description,
     owner: pkg.owner,
     authors: pkg.authors,
-    host: ip.address()
+  //  host: ip.address()
   };
 }

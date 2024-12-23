@@ -30,7 +30,7 @@ const fastify:FastifyInstance = require("fastify")({
         url: req.url,
         hostname: req.hostname,
         remoteAddress: req.ip,
-        remotePort: req.connection.remotePort,
+        remotePort: req.socket.remotePort,
         headers: req.headers,
       };
     },
