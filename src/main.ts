@@ -50,6 +50,7 @@ fastify.register(staticPlugin,{
     if(contentType){ response.setHeader('Content-Type',contentType); }
   }
 });
+console.log(path.join(__dirname,'views'));
 
 fastify.register(view,{
   engine: { handlebars },

@@ -15,7 +15,7 @@
   ],
   "main": "main.js",
   "scripts": {
-    "build": "tsc && tailwindcss -i ./src/css/style.css -o ./static/style.css",
+    "build": "tsc && tailwindcss -i ./src/css/style.css -o ./static/style.css && cp -rp ./src/views ./dist",
     "start": "node dist/main.js",
     "watch": "concurrently \"nodemon --exec ts-node src/main.ts\" \"tailwindcss -i ./src/css/style.css -o ./static/style.css --watch\""
   },
