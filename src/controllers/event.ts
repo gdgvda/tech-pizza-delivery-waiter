@@ -8,14 +8,13 @@ export function eventController(request:FastifyRequest, reply:FastifyReply) {
 
   const now = new Date();
   const date:string = format(now,'yyyy-MM-dd');
-  const end:Date = set(now,{ hours: 18, minutes: 0, seconds: 0, milliseconds: 0 });
+  const end:Date = set(now,{ hours: 23, minutes: 0, seconds: 0, milliseconds: 0 });
 
   if( ! isWednesday(now)){
     return reply.view('nothing');
   }
 
   const eventData:EventEntity = EventService.load(date);
-  console.log('event data:',eventData);
 
   const query = request.query as { [ key:string ]:string };
 
@@ -25,7 +24,8 @@ export function eventController(request:FastifyRequest, reply:FastifyReply) {
     event: eventData.event,
     subscribers: eventData.subscribers,
     open: ( isBefore(now,end) ),
-    alert: query.alert || null
+    alert: query.alert || null,
+    currentYear: new Date().getFullYear() 
   };
 
   return reply.view('event',viewData);

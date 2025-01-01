@@ -6,9 +6,9 @@ import view from '@fastify/view';
 import AutoLoad from "@fastify/autoload";
 import staticPlugin from '@fastify/static';
 import fastifyFormBody from '@fastify/formbody';
-import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify";
+import fastify, { /*FastifyRequest, FastifyReply,*/ FastifyInstance } from "fastify";
 
-const fastify:FastifyInstance = require("fastify")({
+const server: FastifyInstance = fastify({
   logger: {
     transport: {
       target: "pino-pretty",
@@ -18,6 +18,7 @@ const fastify:FastifyInstance = require("fastify")({
       },
     },
   },
+  /*
   serializers: {
     res(reply:FastifyReply) {
       return {
@@ -35,11 +36,12 @@ const fastify:FastifyInstance = require("fastify")({
       };
     },
   },
+  */
 });
 
-fastify.register(fastifyFormBody);
+server.register(fastifyFormBody);
 
-fastify.register(staticPlugin,{
+server.register(staticPlugin,{
   prefix: '/',
   root: path.join(__dirname,'../static'),
   serveDotFiles: false,
@@ -50,9 +52,8 @@ fastify.register(staticPlugin,{
     if(contentType){ response.setHeader('Content-Type',contentType); }
   }
 });
-console.log(path.join(__dirname,'views'));
 
-fastify.register(view,{
+server.register(view,{
   engine: { handlebars },
   root: path.join(__dirname,'views'),
   layout: 'layout.hbs',
@@ -60,15 +61,18 @@ fastify.register(view,{
     partials: {
       header: 'partials/header.hbs',
       footer: 'partials/footer.hbs'
+    },
+    helpers: {
+      currentYear: () => new Date().getFullYear()
     }
   }
 });
 
-fastify.register(AutoLoad,{
+server.register(AutoLoad,{
   dir: path.join(__dirname,"routes")
 });
 
-fastify
+server
   .listen({
     host: process.env.HOST as unknown as string,
     port: process.env.PORT as unknown as number,

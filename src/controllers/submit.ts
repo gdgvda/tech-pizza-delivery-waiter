@@ -24,7 +24,6 @@ export function submitController(request:FastifyRequest, reply:FastifyReply) {
   }
 
   const eventData:EventEntity = EventService.load(date);
-  console.log('event data:',eventData);
 
   eventData.subscribers.push({
     name: requestData.name,

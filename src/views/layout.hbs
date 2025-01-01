@@ -14,9 +14,14 @@
 </head>
 <body class="flex flex-col min-h-screen bg-gray-100 font-sans">
 {{> header}}
-<main class="flex-1 p-4 overflow-y-auto">
+<main class="flex-1 px-4 pb-4 overflow-y-auto">
+  <div id="smile-wrapper" class="w-full h-48">
+  <canvas class="webgl">  </canvas>
+  </div>
   {{{body}}}
 </main>
 {{> footer}}
 </body>
+<script type="importmap"> { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/" } } </script>
+<script type="module" src="smile.js"></script>
 </html>
