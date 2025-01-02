@@ -20,6 +20,15 @@
   </script>
 {{/if}}
 
+{{#if thankyou}}
+  <div class="m-4 p-4 rounded border border-green-300 bg-green-200 text-center">{{thankyou}}</div>
+  <script>
+    setTimeout(() => {
+      window.dispatchEvent(new Event('sayNo'));
+    }, 1000);
+  </script>
+{{/if}}
+
 <div class="p-4 mb-4 border-b border-gray-300">
 {{#if subscribers.length}}
   <dl class="grid grid-cols-1 gap-4 sm:grid-cols-2 py-4 ">

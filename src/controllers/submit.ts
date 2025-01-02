@@ -11,7 +11,7 @@ export function submitController(request:FastifyRequest, reply:FastifyReply) {
   const pin:string = format(now,'yyyyMMdd');
   const requestData:EventSubscribeRequest = request.body as EventSubscribeRequest;
 
-  if( ! isWednesday(now) || isAfter(now,end)){  // @todo fare service per evitare di avere tutto in due posti
+  if( !isWednesday(now) || isAfter(now,end)){  // @todo fare service per evitare di avere tutto in due posti
     return reply.redirect('/event?alert=ISCRIZIONI%20CHIUSE..');
   }
 
@@ -33,6 +33,6 @@ export function submitController(request:FastifyRequest, reply:FastifyReply) {
   console.log('event data:',eventData);
   EventService.store(eventData);
 
-  return reply.redirect('/event?alert=GRAZIE%20PER%20ESSERTI%20ISCRITTO!');
+  return reply.redirect('/event?thankyou=GRAZIE%20PER%20ESSERTI%20ISCRITTO!');
 
 }
