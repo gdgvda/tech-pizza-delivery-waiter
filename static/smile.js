@@ -76,7 +76,7 @@ loader.load('models/nerd_smile.glb', (gltf) => {
         occhio2: occhio2,
         isBlinking: false,
         blinkStart: 0,
-        blinkDuration: .5,
+        blinkDuration: .2,
         blinkPhase: 4,
         nextBlinkTime: randomInterval(1, 4),
     };
