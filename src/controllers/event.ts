@@ -11,7 +11,7 @@ export function eventController(request:FastifyRequest, reply:FastifyReply) {
   const end:Date = set(now,{ hours: 18, minutes: 0, seconds: 0, milliseconds: 0 });
 
   if( ! isWednesday(now)){
-    return reply.view('nothing');
+    return reply.view('nothing',{ currentYear: new Date().getFullYear() });
   }
 
   const eventData:EventEntity = EventService.load(date);
