@@ -11,6 +11,7 @@ export class EventService {
   static load(date:string):EventEntity {
     let eventEntity:EventEntity|undefined;
     const file:string = EventService.makePath(date);
+    console.log(file);
     if(fs.existsSync(file)) {
       try {
         const data:string = fs.readFileSync(file,'utf8');
