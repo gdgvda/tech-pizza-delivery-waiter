@@ -1,36 +1,60 @@
 
-<p>{{day}}, {{date}}</p>
-<p><strong>{{event}}</strong></p>
+
+
+<div class="py-4">
+<h2 class="p-4 text-center font-medium text-lg">{{day}}, {{date}}</h2>
+<h3 class="px-4 text-center font-bold text-xl">{{event}}</h3>
 {{#if open}}
-  <p><small>(le iscrizioni terminano alle 18:00)</small></p>
+  <p class="px-4 text-center text-sm">(le iscrizioni terminano alle 18:00)</p>
 {{else}}
-  <p><mark>Iscrizioni concluse, scrivici su telegram..</mark></p>
+  <div class="m-4 p-4 border border-yellow-300 bg-yellow-200 text-center">Iscrizioni concluse,<br> <a href="https://t.me/+e1TW47DnCiVjOGFk"> scrivici su telegram...</a></div>
 {{/if}}
-<hr/>
+</div>
+
+{{#if alert}}
+  <div class="m-4 p-4 rounded border border-red-300 bg-red-200 text-center">{{alert}}</div>
+  <script>
+    setTimeout(() => {
+      window.dispatchEvent(new Event('sayNo'));
+    }, 1000);
+  </script>
+{{/if}}
+
+{{#if thankyou}}
+  <div class="m-4 p-4 rounded border border-green-300 bg-green-200 text-center">{{thankyou}}</div>
+  <script>
+    setTimeout(() => {
+      window.dispatchEvent(new Event('sayNo'));
+    }, 1000);
+  </script>
+{{/if}}
+
+<div class="p-4 mb-4 border-b border-gray-300">
 {{#if subscribers.length}}
-  <dl>
+  <dl class="grid grid-cols-1 gap-4 sm:grid-cols-2 py-4 ">
     {{#each subscribers}}
       <dt><strong>{{name}}</strong></dt>
       <dd>{{choose}}</dd>
     {{/each}}
   </dl>
 {{else}}
-  <div class="border border-gray-300 p-4 rounded-lg m-3 shadow text-gray-400 ">
+  <div class="border border-gray-300 p-4 rounded-lg shadow text-gray-400 ">
     Nessun iscritto ancora presente...
   </div>
-  <br/>
 {{/if}}
+</div>
+<div >
 {{#if open}}
-  <hr/>
+
+
   <form method="post" action="/submit">
     Iscriviti:<br/>
-    <input type="password" name="pin" placeholder="PIN"/><br/>
-    <input type="text" name="name" placeholder="Nome"/><br/>
-    <input type="text" name="choose" placeholder="Pietanza scelta"/><br/>
-    <input type="submit"/>
+    <input class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" type="password" name="pin" placeholder="PIN"/><br/>
+    <input class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" type="text" name="name" placeholder="Nome"/><br/>
+    <input class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" type="text" name="choose" placeholder="Pietanza scelta"/><br/>
+    <input class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-black text-white shadow hover:bg-black/90 h-9 px-4 py-2" type="submit"/>
   </form>
 {{/if}}
-{{#if alert}}
-  <hr/>
-  <p></p><mark>{{alert}}</mark></p>
-{{/if}}
+
+</div>
+

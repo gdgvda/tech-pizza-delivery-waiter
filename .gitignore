@@ -1,6 +1,5 @@
 datasets/
 vendor/
-package-lock.json
 node_modules
 dist
 *.log

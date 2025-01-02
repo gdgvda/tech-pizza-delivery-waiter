@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
-  output: {
+  plugins: [require('tailwindcss-motion')], 
+    output: {
     dir: './static',
     filename: 'style.css'
   }

@@ -1,15 +1,33 @@
 {
   "compilerOptions": {
-    "target": "es2022",
-    "module": "commonjs",
-    "strict": true,
+    "target": "ES2020",
+    "module": "ESNext",
+    "useDefineForClassFields": true,
+    
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "sourceMap": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+
+    /* Bundler mode */
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+
+
+    /* Linting */
+    "strict": true,
+    
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+    
   },
   "include": ["src/**/*", "static/**/*"],
   "exclude": ["node_modules"]

@@ -15,7 +15,6 @@ export function eventController(request:FastifyRequest, reply:FastifyReply) {
   }
 
   const eventData:EventEntity = EventService.load(date);
-  console.log('event data:',eventData);
 
   const query = request.query as { [ key:string ]:string };
 
@@ -25,7 +24,8 @@ export function eventController(request:FastifyRequest, reply:FastifyReply) {
     event: eventData.event,
     subscribers: eventData.subscribers,
     open: ( isBefore(now,end) ),
-    alert: query.alert || null
+    alert: query.alert || null,
+    currentYear: new Date().getFullYear() 
   };
 
   return reply.view('event',viewData);
