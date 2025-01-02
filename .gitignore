@@ -1,6 +1,5 @@
 datasets/
 vendor/
-
 node_modules
 dist
 *.log

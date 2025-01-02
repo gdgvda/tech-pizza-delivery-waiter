@@ -1,5 +1,5 @@
 import pkg from '../../package.json';
-import ip from "ip";
+import getCurrentIP from '../helpers/getIP';
 
 export function infoController() {
   return {
@@ -9,6 +9,6 @@ export function infoController() {
     description: pkg.description,
     owner: pkg.owner,
     authors: pkg.authors,
-    host: ip.address()
+    host: getCurrentIP()
   };
 }
