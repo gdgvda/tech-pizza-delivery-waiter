@@ -52,6 +52,16 @@ let headNo = false;
 
 // Load GLB model
 let modelObject;
+
+let occhialiAction;
+let mixer;
+let frameCount = 0;
+let occhialiPlaying = false;
+
+let slurpAction;
+let slurpPlaying = false;
+
+
 const loader = new GLTFLoader();
 loader.load('models/nerd_smile.glb', (gltf) => {
     modelObject = gltf.scene;
@@ -62,8 +72,24 @@ loader.load('models/nerd_smile.glb', (gltf) => {
             child.receiveShadow = true;
         }
     });
+    mixer = new THREE.AnimationMixer(modelObject);
+
+    const animations = gltf.animations;
+    occhialiAction = mixer.clipAction(animations[0]);
+    slurpAction = mixer.clipAction(animations[1]);
 
     scene.add(modelObject);
+
+
+
+    document.addEventListener('click', () => {
+        frameCount = 0;
+        occhialiPlaying = true;
+        occhialiAction.reset();
+        occhialiAction.setLoop(THREE.LoopOnce);
+        occhialiAction.timeScale = 2;
+        occhialiAction.play();
+    });
 
     const sopraccilio1 = modelObject.getObjectByName('sopraccilio1');
     const sopraccilio2 = modelObject.getObjectByName('sopraccilio2');
@@ -78,7 +104,7 @@ loader.load('models/nerd_smile.glb', (gltf) => {
         blinkStart: 0,
         blinkDuration: .2,
         blinkPhase: 4,
-        nextBlinkTime: randomInterval(1, 4),
+        nextBlinkTime: randomInterval(1, 3),
     };
     sopraccilia = {
         sopraccilio1: sopraccilio1,
@@ -97,6 +123,15 @@ window.addEventListener('resize', () => {
 
 window.addEventListener('sayNo', () => {
     sayNo();
+});
+
+window.addEventListener('slurp', () => {
+    frameCount = 0;
+    slurpPlaying = true;
+    slurpAction.reset();
+    slurpAction.setLoop(THREE.LoopOnce);
+    slurpAction.timeScale = 1;
+    slurpAction.play();
 });
 
 function updateBlink(eyes, now, delta) {
@@ -166,6 +201,24 @@ function animate() {
     const now = performance.now() / 1000;
     const delta = now - oldTime;
     oldTime = now;
+    if (mixer && occhialiPlaying) {
+        mixer.update(delta);
+        frameCount++;
+        
+        if (frameCount >= 100) {
+            occhialiPlaying = false;
+            occhialiAction.stop();
+        }
+    }
+    if (mixer && slurpPlaying) {
+        mixer.update(delta);
+        frameCount++;
+        
+        if (frameCount >= 100) {
+            slurpPlaying = false;
+            slurpAction.stop();
+        }
+    }
     if (eyes) updateBlink(eyes, now, delta);
     if (sopraccilia) rotateSopraccilia(sopraccilia, now, delta);
     renderer.render(scene, camera);
