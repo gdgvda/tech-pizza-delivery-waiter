@@ -5,3 +5,7 @@ dist
 *.log
 .env
 static/style.css
+
+# virtualenvs
+.nvenv/
+.venv/
