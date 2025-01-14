@@ -1,11 +1,13 @@
 {
-  "version": "0.2.6",
+  "version": "0.2.7",
   "name": "tech-pizza-delivery-waiter",
   "title": "Tech&Pizza Delivery Waiter",
   "description": "A simple event delivery booking management system",
   "owner": "GDG Valle d'Aosta",
   "authors": [
-    "Manuel Zavatta <manuel.zavatta@gmail.com>"
+    "Manuel Zavatta <manuel.zavatta@gmail.com>",
+    "Alain Martini <manuel.zavatta@gmail.com>",
+    "Mirtilla Cecchi <mirtillacecchi@gmail.com>"
   ],
   "license": "MIT",
   "keywords": [
@@ -15,8 +17,8 @@
   ],
   "main": "main.js",
   "scripts": {
-    "build": "tsc && tailwindcss -i ./src/css/style.css -o ./static/style.css && cp -rp ./src/views ./dist",
     "start": "node dist/main.js",
+    "build": "tsc && tailwindcss -i ./src/css/style.css -o ./static/style.css && cp -rp ./src/views ./dist",
     "watch": "concurrently \"nodemon --exec tsx src/main.ts\" \"tailwindcss -i ./src/css/style.css -o ./static/style.css --watch\""
   },
   "dependencies": {
