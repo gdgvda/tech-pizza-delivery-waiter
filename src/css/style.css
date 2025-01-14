@@ -2,3 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom styles for dark mode */
+body.dark {
+  @apply bg-gray-900 text-white;
+}
+
+body.dark input,
+body.dark button {
+  @apply bg-gray-800 text-white border-gray-700;
+}
+
+body.dark input::placeholder {
+  @apply text-gray-400;
+}
+
+body.dark .webgl {
+  @apply bg-gray-900;
+}
+
+/* Custom styles for dark mode readability */
+body.dark .bg-yellow-200 {
+  @apply bg-yellow-600 text-yellow-100;
+}
+
+body.dark .bg-red-200 {
+  @apply bg-red-600 text-red-100;
+}

@@ -15,8 +15,12 @@
 <body class="flex flex-col min-h-screen bg-gray-100 font-sans">
 {{> header}}
 <main class="flex-1 px-4 pb-4 overflow-y-auto">
+  <div class="absolute top-20 right-4">
+    <label for="dark-mode-toggle" class="mr-2">Dark Mode</label>
+    <input type="checkbox" id="dark-mode-toggle" />
+  </div>
   <div id="smile-wrapper" class="w-full h-48">
-  <canvas class="webgl">  </canvas>
+    <canvas class="webgl bg-gray-100 dark:bg-gray-900"></canvas>
   </div>
   {{{body}}}
 </main>
@@ -24,4 +28,30 @@
 </body>
 <script type="importmap"> { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/" } } </script>
 <script type="module" src="smile.js"></script>
+<script>
+  const toggle = document.getElementById('dark-mode-toggle');
+  const body = document.getElementsByTagName('body')[0];
+  const canvas = document.querySelector('.webgl');
+  const tpdwThemeKey = 'tpdw-theme';
+
+  toggle.addEventListener('change', () => {
+    if (toggle.checked) {
+      body.classList.add('dark');
+      canvas.classList.add('dark:bg-gray-900');
+      localStorage.setItem(tpdwThemeKey, 'dark');
+    } else {
+      body.classList.remove('dark');
+      canvas.classList.remove('dark:bg-gray-900');
+      localStorage.setItem(tpdwThemeKey, 'light');
+    }
+  });
+
+  // Load the saved theme
+  const savedTheme = localStorage.getItem(tpdwThemeKey);
+  if (savedTheme === 'dark') {
+    toggle.checked = true;
+    body.classList.add('dark');
+    canvas.classList.add('dark:bg-gray-900');
+  }
+</script>
 </html>
