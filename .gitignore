@@ -4,8 +4,6 @@ node_modules
 dist
 *.log
 .env
-static/style.css
-
-# virtualenvs
 .nvenv/
 .venv/
+static/style.css
